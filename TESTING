@@ -1,0 +1,46 @@
+{
+ "metadata": {
+  "name": "",
+  "signature": "sha256:afe7fd8c098d0bb5a268f9a454da6801e6d707ddd46b79ee79b79d09fd3400ac"
+ },
+ "nbformat": 3,
+ "nbformat_minor": 0,
+ "worksheets": [
+  {
+   "cells": [
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "Two of the most useful ways to standardize inputs are: \n",
+      "\n",
+      "-> Mean 0 and standard deviation 1\n",
+      "\n",
+      "-> Midrange 0 and range 2 (i.e., minimum -1 and maximum 1) \n",
+      "\n",
+      "Note that statistics such as the mean and standard deviation are computed\n",
+      "from the training data, not from the validation or test data. The validation\n",
+      "and test data must be standardized using the statistics computed from the\n",
+      "training data. "
+     ]
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "This will be used as test for now!"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [],
+     "language": "python",
+     "metadata": {},
+     "outputs": []
+    }
+   ],
+   "metadata": {}
+  }
+ ]
+}
