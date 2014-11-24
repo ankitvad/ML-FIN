@@ -1,0 +1,522 @@
+{
+ "metadata": {
+  "name": "",
+  "signature": "sha256:a3af0080e76d33437a9607536452d89e77f0f6a46adefc18b3dfba40b0b2f823"
+ },
+ "nbformat": 3,
+ "nbformat_minor": 0,
+ "worksheets": [
+  {
+   "cells": [
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "pwd"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 37,
+       "text": [
+        "u'/home/synorg/Desktop/BT'"
+       ]
+      }
+     ],
+     "prompt_number": 37
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "Let's look at few possibilities how to load stock quote data into Python enviroment."
+     ]
+    },
+    {
+     "cell_type": "heading",
+     "level": 2,
+     "metadata": {},
+     "source": [
+      "Using Pandas"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "import datetime\n",
+      "\n",
+      "import pandas as pd\n",
+      "import pandas.io.data\n",
+      "from pandas import Series, DataFrame\n",
+      "pd.__version__"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 3,
+       "text": [
+        "'0.13.1'"
+       ]
+      }
+     ],
+     "prompt_number": 3
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      " "
+     ]
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "Functions from pandas.io.data extract data from various Internet source, e.g. Yahoo Finance, Google Finance, World Bank, St. Louis FED (FRED), into a DataFrame. We will use Yahoo Finance as a specific example."
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "from IPython.core.display import HTML\n",
+      "HTML(\"<iframe src=http://pandas.pydata.org/pandas-docs/version/0.15.1/remote_data.html width=1000 height=350></iframe>\")"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "html": [
+        "<iframe src=http://pandas.pydata.org/pandas-docs/version/0.15.1/remote_data.html width=1000 height=350></iframe>"
+       ],
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 4,
+       "text": [
+        "<IPython.core.display.HTML at 0x7fee7479eb10>"
+       ]
+      }
+     ],
+     "prompt_number": 4
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM1 = pd.io.data.get_data_yahoo('IBM', \n",
+      "                                 start=datetime.datetime(2003, 9, 30), \n",
+      "                                 end=datetime.datetime(2013, 10, 1))"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 5
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "Our IBM daily data are in DataFrame format. We have 2519 rows, that means 2519 trading days. Since there is approximately 251 trading days per year, we have, as we wanted, 10 years timeframe. \n",
+      "\n",
+      "Next command shows just a small part of DataFrame:"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM.head()"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "html": [
+        "<div style=\"max-height:1000px;max-width:1500px;overflow:auto;\">\n",
+        "<table border=\"1\" class=\"dataframe\">\n",
+        "  <thead>\n",
+        "    <tr style=\"text-align: right;\">\n",
+        "      <th></th>\n",
+        "      <th>Open</th>\n",
+        "      <th>High</th>\n",
+        "      <th>Low</th>\n",
+        "      <th>Close</th>\n",
+        "      <th>Volume</th>\n",
+        "      <th>Adj Close</th>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>Date</th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "    </tr>\n",
+        "  </thead>\n",
+        "  <tbody>\n",
+        "    <tr>\n",
+        "      <th>2003-09-30</th>\n",
+        "      <td> 89.20</td>\n",
+        "      <td> 89.25</td>\n",
+        "      <td> 87.90</td>\n",
+        "      <td> 88.33</td>\n",
+        "      <td> 7056700</td>\n",
+        "      <td> 73.86</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2003-10-01</th>\n",
+        "      <td> 88.75</td>\n",
+        "      <td> 90.60</td>\n",
+        "      <td> 88.70</td>\n",
+        "      <td> 90.35</td>\n",
+        "      <td> 7925200</td>\n",
+        "      <td> 75.55</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2003-10-02</th>\n",
+        "      <td> 89.55</td>\n",
+        "      <td> 90.45</td>\n",
+        "      <td> 89.22</td>\n",
+        "      <td> 90.08</td>\n",
+        "      <td> 7428300</td>\n",
+        "      <td> 75.32</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2003-10-03</th>\n",
+        "      <td> 91.00</td>\n",
+        "      <td> 91.95</td>\n",
+        "      <td> 90.57</td>\n",
+        "      <td> 90.64</td>\n",
+        "      <td> 7479300</td>\n",
+        "      <td> 75.79</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2003-10-06</th>\n",
+        "      <td> 90.74</td>\n",
+        "      <td> 91.76</td>\n",
+        "      <td> 90.51</td>\n",
+        "      <td> 91.18</td>\n",
+        "      <td> 3845400</td>\n",
+        "      <td> 76.24</td>\n",
+        "    </tr>\n",
+        "  </tbody>\n",
+        "</table>\n",
+        "<p>5 rows \u00d7 6 columns</p>\n",
+        "</div>"
+       ],
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 6,
+       "text": [
+        "             Open   High    Low  Close   Volume  Adj Close\n",
+        "Date                                                      \n",
+        "2003-09-30  89.20  89.25  87.90  88.33  7056700      73.86\n",
+        "2003-10-01  88.75  90.60  88.70  90.35  7925200      75.55\n",
+        "2003-10-02  89.55  90.45  89.22  90.08  7428300      75.32\n",
+        "2003-10-03  91.00  91.95  90.57  90.64  7479300      75.79\n",
+        "2003-10-06  90.74  91.76  90.51  91.18  3845400      76.24\n",
+        "\n",
+        "[5 rows x 6 columns]"
+       ]
+      }
+     ],
+     "prompt_number": 6
+    },
+    {
+     "cell_type": "heading",
+     "level": 2,
+     "metadata": {},
+     "source": [
+      "From CSV files"
+     ]
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "Assuming we have downloaded data from some vendor:"
+     ]
+    },
+    {
+     "cell_type": "heading",
+     "level": 6,
+     "metadata": {},
+     "source": [
+      "We can use Pandas:"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM2 = pd.read_csv('table.csv', index_col='Date', parse_dates=True)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 32
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM2.head()"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "html": [
+        "<div style=\"max-height:1000px;max-width:1500px;overflow:auto;\">\n",
+        "<table border=\"1\" class=\"dataframe\">\n",
+        "  <thead>\n",
+        "    <tr style=\"text-align: right;\">\n",
+        "      <th></th>\n",
+        "      <th>Open</th>\n",
+        "      <th>High</th>\n",
+        "      <th>Low</th>\n",
+        "      <th>Close</th>\n",
+        "      <th>Volume</th>\n",
+        "      <th>Adj Close</th>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>Date</th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "      <th></th>\n",
+        "    </tr>\n",
+        "  </thead>\n",
+        "  <tbody>\n",
+        "    <tr>\n",
+        "      <th>2013-11-01</th>\n",
+        "      <td> 179.81</td>\n",
+        "      <td> 180.34</td>\n",
+        "      <td> 178.88</td>\n",
+        "      <td> 179.23</td>\n",
+        "      <td> 3644500</td>\n",
+        "      <td> 174.05</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2013-10-31</th>\n",
+        "      <td> 179.65</td>\n",
+        "      <td> 181.67</td>\n",
+        "      <td> 179.04</td>\n",
+        "      <td> 179.21</td>\n",
+        "      <td> 4318100</td>\n",
+        "      <td> 174.03</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2013-10-30</th>\n",
+        "      <td> 181.69</td>\n",
+        "      <td> 182.18</td>\n",
+        "      <td> 179.86</td>\n",
+        "      <td> 180.15</td>\n",
+        "      <td> 5273700</td>\n",
+        "      <td> 174.94</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2013-10-29</th>\n",
+        "      <td> 177.62</td>\n",
+        "      <td> 182.32</td>\n",
+        "      <td> 177.50</td>\n",
+        "      <td> 182.12</td>\n",
+        "      <td> 8904600</td>\n",
+        "      <td> 176.85</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2013-10-28</th>\n",
+        "      <td> 177.04</td>\n",
+        "      <td> 177.89</td>\n",
+        "      <td> 176.20</td>\n",
+        "      <td> 177.35</td>\n",
+        "      <td> 3712700</td>\n",
+        "      <td> 172.22</td>\n",
+        "    </tr>\n",
+        "  </tbody>\n",
+        "</table>\n",
+        "<p>5 rows \u00d7 6 columns</p>\n",
+        "</div>"
+       ],
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 34,
+       "text": [
+        "              Open    High     Low   Close   Volume  Adj Close\n",
+        "Date                                                          \n",
+        "2013-11-01  179.81  180.34  178.88  179.23  3644500     174.05\n",
+        "2013-10-31  179.65  181.67  179.04  179.21  4318100     174.03\n",
+        "2013-10-30  181.69  182.18  179.86  180.15  5273700     174.94\n",
+        "2013-10-29  177.62  182.32  177.50  182.12  8904600     176.85\n",
+        "2013-10-28  177.04  177.89  176.20  177.35  3712700     172.22\n",
+        "\n",
+        "[5 rows x 6 columns]"
+       ]
+      }
+     ],
+     "prompt_number": 34
+    },
+    {
+     "cell_type": "heading",
+     "level": 6,
+     "metadata": {},
+     "source": [
+      "Or we can use csv module:"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "import csv"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 35
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "with open('IBM.csv', 'rb') as csvfile:\n",
+      "        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')\n",
+      "        IBM3 = []\n",
+      "        for row in spamreader:\n",
+      "            x = float(row[0])\n",
+      "            IBM3.append(x)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 39
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "type(IBM3)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 41,
+       "text": [
+        "list"
+       ]
+      }
+     ],
+     "prompt_number": 41
+    },
+    {
+     "cell_type": "heading",
+     "level": 2,
+     "metadata": {},
+     "source": [
+      "Using ystockquote"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "import ystockquote"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 7
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM3 = ystockquote.get_historical_prices('IBM', '2003-09-31', '2013-10-01')"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [],
+     "prompt_number": 29
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "print type(IBM3)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "output_type": "stream",
+       "stream": "stdout",
+       "text": [
+        "<type 'dict'>\n"
+       ]
+      }
+     ],
+     "prompt_number": 30
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": [
+      "ystockquote.get_historical_prices() returns nested dictionary (dictionary of dictionaries). This is very uncomfortable to work with, therefore we won't be using it. However, ystockquote module offers interesting possiblility of getting some financial indicators (not historical values, obtained only through web scrapping of Yahoo Finance). This could be used to accumulate historical values of these indicators. ?!"
+     ]
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "IBM3['2013-10-01']"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 31,
+       "text": [
+        "{'Adj Close': '180.99',\n",
+        " 'Close': '186.38',\n",
+        " 'High': '186.65',\n",
+        " 'Low': '184.65',\n",
+        " 'Open': '185.34',\n",
+        " 'Volume': '2681200'}"
+       ]
+      }
+     ],
+     "prompt_number": 31
+    },
+    {
+     "cell_type": "markdown",
+     "metadata": {},
+     "source": []
+    },
+    {
+     "cell_type": "heading",
+     "level": 3,
+     "metadata": {},
+     "source": [
+      "Conclusion: USE PANDAS"
+     ]
+    }
+   ],
+   "metadata": {}
+  }
+ ]
+}
